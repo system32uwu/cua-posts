@@ -1,30 +1,16 @@
-import { useState } from "react";
-import {
-  YStack,
-  Paragraph,
-  XStack,
-  Button,
-  Input,
-  Image,
-  Stack,
-} from "tamagui";
-import { Link } from "solito/link";
 import { OAuthStrategy } from "@clerk/types";
+import { Link } from "solito/link";
+import { Button, Image, Paragraph, XStack, YStack } from "tamagui";
 
 interface Props {
   type: "sign-up" | "sign-in";
   handleOAuthWithPress: (strategy: OAuthStrategy) => void;
-  handleEmailWithPress: (emailAddress, password) => void;
 }
 
 export const SignUpSignInComponent: React.FC<Props> = ({
   type,
   handleOAuthWithPress,
-  handleEmailWithPress,
 }) => {
-  const [emailAddress, setEmailAddress] = useState("");
-  const [password, setPassword] = useState("");
-
   return (
     <YStack
       borderRadius="$10"
@@ -58,13 +44,13 @@ export const SignUpSignInComponent: React.FC<Props> = ({
         </Button>
         <Button
           size="$5"
-          onPress={() => handleOAuthWithPress("oauth_apple")}
+          onPress={() => handleOAuthWithPress("oauth_github")}
           hoverStyle={{ opacity: 0.8 }}
           focusStyle={{ scale: 0.95 }}
           borderColor="$gray8Light"
         >
           <Image
-            src="https://qwvsfvhphdefqfyuuhlb.supabase.co/storage/v1/object/public/logos/Apple%20logo.png"
+            src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png"
             width={22}
             height={22}
             resizeMode="contain"
@@ -85,45 +71,7 @@ export const SignUpSignInComponent: React.FC<Props> = ({
           />
         </Button>
       </XStack>
-      <XStack ai="center" width="100%" jc="space-between">
-        <Stack h="$0.25" bg="black" w="$10" opacity={0.1} />
-        <Paragraph size="$3" opacity={0.5}>
-          or
-        </Paragraph>
-        <Stack h="$0.25" bg="black" w="$10" opacity={0.1} />
-      </XStack>
 
-      {/* email sign up option */}
-      <Input
-        placeholder="Email"
-        onChangeText={(text) => {
-          setEmailAddress(text);
-        }}
-      />
-      <Input
-        placeholder="Password"
-        onChangeText={(text) => {
-          setPassword(text);
-        }}
-        textContentType="password"
-        secureTextEntry
-      />
-
-      {/* sign up button */}
-      <Button
-        themeInverse
-        onPress={() => {
-          handleEmailWithPress(emailAddress, password);
-        }}
-        hoverStyle={{ opacity: 0.8 }}
-        onHoverIn={() => {}}
-        onHoverOut={() => {}}
-        focusStyle={{ scale: 0.975 }}
-      >
-        {type === "sign-up" ? "Sign up" : "Sign in"}
-      </Button>
-
-      {/* or sign in, in small and less opaque font */}
       <XStack>
         <Paragraph size="$2" mr="$2" opacity={0.4}>
           {type === "sign-up"

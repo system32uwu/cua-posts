@@ -4,11 +4,11 @@ import "@tamagui/font-inter/css/700.css";
 
 import { NextThemeProvider, useRootTheme } from "@tamagui/next-theme";
 import { Provider } from "app/provider";
-import Head from "next/head";
-import React, { useMemo } from "react";
-import type { SolitoAppProps } from "solito";
-import "raf/polyfill";
 import { trpc } from "app/utils/trpc.web";
+import Head from "next/head";
+import "raf/polyfill";
+import React from "react";
+import type { SolitoAppProps } from "solito";
 
 function MyApp({ Component, pageProps }: SolitoAppProps) {
   return (

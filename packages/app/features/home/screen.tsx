@@ -3,21 +3,22 @@ import {
   Button,
   H1,
   H3,
+  Image,
   Paragraph,
   Separator,
   XStack,
   YStack,
-  Image,
 } from "@my/ui";
+import { FilePlus } from "@tamagui/lucide-icons";
 import React, { useEffect } from "react";
 import { useLink } from "solito/link";
-import { trpc } from "../../utils/trpc";
 import { SignedIn, SignedOut, useAuth } from "../../utils/clerk";
+import { trpc } from "../../utils/trpc";
 
 export function HomeScreen() {
   const { signOut, userId } = useAuth();
   const userLinkProps = useLink({
-    href: "/user/nate",
+    href: `/user/${!userId ? "test" : userId.split("_")[1]}`,
   });
   const signInLinkProps = useLink({
     href: "/signin",
@@ -26,7 +27,9 @@ export function HomeScreen() {
     href: "/signup",
   });
 
-  const { data, isLoading, error } = trpc.entry.all.useQuery();
+  const linkPropsNewPost = useLink({ href: "/new-post" });
+
+  const { data, isLoading, error } = trpc.post.all.useQuery();
 
   useEffect(() => {
     console.log(data);
@@ -83,21 +86,7 @@ export function HomeScreen() {
         <Separator />
       </YStack>
 
-      <H3 ta="center">Some Demos</H3>
-      <YStack p="$2">
-        <Paragraph>tRPC Query Demo</Paragraph>
-        {data?.map((entry) => (
-          <Paragraph opacity={0.5} key={entry.id}>
-            {entry.id}
-          </Paragraph>
-        ))}
-      </YStack>
-
-      <XStack space>
-        <Button {...userLinkProps} theme={"gray"}>
-          User Page(Routing)
-        </Button>
-      </XStack>
+      <H3 ta="center">User / Auth Demo</H3>
 
       <SignedOut>
         <XStack space ai="center">
@@ -111,14 +100,42 @@ export function HomeScreen() {
       </SignedOut>
 
       <SignedIn>
-        <Button
-          onPress={() => {
-            signOut();
-          }}
-          theme={"red"}
-        >
-          Sign Out
-        </Button>
+        <YStack space={"$2"}>
+          <Button {...userLinkProps} theme={"gray"}>
+            My profile
+          </Button>
+          <Button
+            onPress={() => {
+              signOut();
+            }}
+            theme={"red"}
+          >
+            Sign Out
+          </Button>
+        </YStack>
+      </SignedIn>
+
+      <H3 ta="center">Posts Demo</H3>
+
+      <YStack p="$2">
+        <Paragraph textAlign="center">Created Posts</Paragraph>
+        {data?.length ? (
+          data.map((post) => (
+            <Anchor href={`/posts/${post.slug}`} key={post.id}>
+              <i>{post.title}</i> - {post.author.name}
+            </Anchor>
+          ))
+        ) : (
+          <Paragraph>No posts yet, create one!</Paragraph>
+        )}
+      </YStack>
+
+      <SignedIn>
+        <XStack space>
+          <Button {...linkPropsNewPost} icon={FilePlus} theme="gray">
+            Create new post
+          </Button>
+        </XStack>
       </SignedIn>
     </YStack>
   );

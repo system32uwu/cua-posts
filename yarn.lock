@@ -2600,6 +2600,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@my/ui@workspace:packages/ui"
   dependencies:
+    "@tamagui-extras/core": ^1.1.5
+    "@tamagui-extras/form": ^1.2.0
     "@tamagui/animations-react-native": ^1.0.17
     "@tamagui/build": ^1.0.17
     "@tamagui/font-inter": ^1.0.17
@@ -3320,6 +3322,32 @@ __metadata:
   dependencies:
     defer-to-connect: ^1.0.1
   checksum: 4d9158061c5f397c57b4988cde33a163244e4f02df16364f103971957a32886beb104d6180902cbe8b38cb940e234d9f98a4e486200deca621923f62f50a06fe
+  languageName: node
+  linkType: hard
+
+"@tamagui-extras/core@npm:1.1.5, @tamagui-extras/core@npm:^1.1.5":
+  version: 1.1.5
+  resolution: "@tamagui-extras/core@npm:1.1.5"
+  peerDependencies:
+    react: "*"
+    react-native: "*"
+    react-native-svg: ^13.9.0
+    tamagui: 1.27.3
+  checksum: e6d4ac9d3c99f591c7f7d54202053f6dff49255f00ad5aa00a8a31d532eb984a6f7e64918b9f8b922b6abc8ab0689a9ed42937c8e460c49b8ddd077eb8c4f813
+  languageName: node
+  linkType: hard
+
+"@tamagui-extras/form@npm:^1.2.0":
+  version: 1.2.0
+  resolution: "@tamagui-extras/form@npm:1.2.0"
+  dependencies:
+    "@tamagui-extras/core": 1.1.5
+    react-hook-form: ^7.43.9
+  peerDependencies:
+    react: "*"
+    react-native: "*"
+    tamagui: 1.27.3
+  checksum: b6da8639796f9ca626ff4c3f279bc0da003ebb7093b73615a0e413bdda7e353c0849b4aa6d05a8e4f111e0b6244c2e756fdfa2d9f3d780b087b3a95d49ecad2e
   languageName: node
   linkType: hard
 
@@ -13208,6 +13236,15 @@ prisma@latest:
   peerDependencies:
     react: ">=17.0.0"
   checksum: 4258eabdbbf74aaebc38ad1fd7cfdc1984d2a844a2247b39a341c55c1beb02d5e855e6473ec5683205a52b2251d0f7dffa07cd8100f402dd2698af88b932d946
+  languageName: node
+  linkType: hard
+
+"react-hook-form@npm:^7.43.9":
+  version: 7.43.9
+  resolution: "react-hook-form@npm:7.43.9"
+  peerDependencies:
+    react: ^16.8.0 || ^17 || ^18
+  checksum: 65b94de625f2b7921c4e856bf0abbe142bfe06c052217bd1bcc3a842e2cc37fa3a3e03758119dc038bbcf5edb49e02c29206528b80b201f9a4d601471ef78153
   languageName: node
   linkType: hard
 

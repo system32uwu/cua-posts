@@ -1,7 +1,5 @@
-/* create user */
-//grab the images for the corresponding user
-import { router, publicProcedure, protectedProcedure } from "../trpc";
 import { z } from "zod";
+import { protectedProcedure, router } from "../trpc";
 
 export const userRouter = router({
   current: protectedProcedure.query(({ ctx }) => {
@@ -15,16 +13,12 @@ export const userRouter = router({
       })
     )
     .mutation(({ ctx, input }) => {
-      //create user and link it to the user
       return ctx.prisma.user.create({
         data: {
           email: input.email,
           id: input.id,
+          name: input.email.split("@")[0],
         },
       });
     }),
 });
-
-//question: can we get the id from ctx instead of input?
-//or will there be no ctx yet because the user is not created yet?
-//answer: no, ctx is not available yet because the user is not created yet

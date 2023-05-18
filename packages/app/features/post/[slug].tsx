@@ -5,23 +5,24 @@ import React from "react";
 import { createParam } from "solito";
 import { useLink } from "solito/link";
 
-const { useParam } = createParam<{ id: string }>();
+const { useParam } = createParam<{ slug: string }>();
 
-export function UserDetailScreen() {
-  const [id] = useParam("id");
+export const PostDetailScreen: React.FC<{ slug: string }> = () => {
+  const [slug] = useParam("slug");
   const linkPropsBack = useLink({ href: "/" });
 
-  const { data } = trpc.user.current.useQuery();
+  const { data, error } = trpc.post.bySlug.useQuery({ slug: slug as string });
 
-  console.log("data", data);
+  if (error) {
+    return <Paragraph>{error.message}</Paragraph>;
+  }
 
   return (
     <YStack f={1} jc="center" ai="center" space>
-      <Paragraph ta="center" fow="800">{`User ID: ${id}`}</Paragraph>
       <Paragraph>{JSON.stringify(data, null, 2)}</Paragraph>
       <Button {...linkPropsBack} icon={ChevronLeft} theme="gray">
         Go Home
       </Button>
     </YStack>
   );
-}
+};

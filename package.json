@@ -20,6 +20,7 @@
     "db-push": "turbo db-push",
     "postinstall": "yarn build:ui && yarn generate",
     "generate": "cd packages/db && yarn prisma generate",
+    "migrate": "cd packages/db && yarn prisma:migrate:dev",
     "build:ui": "cd packages/ui && yarn build",
     "build-desktop": "turbo run build:tauri --filter nextjs",
     "studio": " cd packages/db && yarn prisma:studio",

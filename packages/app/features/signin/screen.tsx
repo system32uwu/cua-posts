@@ -1,9 +1,9 @@
-import { YStack } from "@my/ui";
-import { useSignIn } from "app/utils/clerk";
 import { OAuthStrategy } from "@clerk/types";
-import { useRouter } from "solito/router";
+import { YStack } from "@my/ui";
 import { SignUpSignInComponent } from "@my/ui/src/components/SignUpSignIn";
 import { handleOAuthSignIn } from "app/utils/auth";
+import { useSignIn } from "app/utils/clerk";
+import { useRouter } from "solito/router";
 
 const getBaseUrl = () => {
   if (typeof window !== "undefined") return ""; // browser should use relative url
@@ -30,20 +30,11 @@ export function SignInScreen() {
     await redirectIfSignedIn();
   };
 
-  const handleEmailSignInWithPress = async (emailAddress, password) => {
-    await signIn.create({
-      identifier: emailAddress,
-      password,
-    });
-    await redirectIfSignedIn();
-  };
-
   return (
     <YStack f={1} jc="center" ai="center" space>
       <SignUpSignInComponent
         type="sign-in"
         handleOAuthWithPress={handleOAuthSignInWithPress}
-        handleEmailWithPress={handleEmailSignInWithPress}
       />
     </YStack>
   );
